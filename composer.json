@@ -1,0 +1,24 @@
+{
+  "name": "pod-sdk/pod-neshan-service",
+  "version": "2.0.0",
+  "type": "library",
+  "keywords": ["sdk", "pod sdk", "pod sdk neshan services"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Elham Keshtgar",
+      "email": "podsdk@fanap.ir"
+    }
+  ],
+  "description": "POD Neshan Services SDK",
+
+  "require": {
+    "ext-openssl": "*",
+    "pod-sdk/pod-base-service" : "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pod\\Neshan\\Service\\" : "src/"
+    }
+  }
+}
