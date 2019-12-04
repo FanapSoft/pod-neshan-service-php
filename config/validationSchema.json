@@ -86,10 +86,8 @@
           }
         },
         "scApiKey": {
-          "type": "array",
-          "items": {
             "type": "string"
-          }        }
+        }
       },
       "required": [
         "lat",

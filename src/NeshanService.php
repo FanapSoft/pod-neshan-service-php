@@ -11,14 +11,17 @@
 namespace Pod\Neshan\Service;
 
 use Pod\Base\Service\BaseService;
+use Pod\Base\Service\BaseInfo;
 
 class NeshanService extends BaseService
 {
     private static $neshanApi;
+    private static $jsonSchema;
     private static $serviceProductId;
 
     public function __construct()
     {
+        BaseInfo::initServerType(BaseInfo::PRODUCTION_SERVER);
         parent::__construct();
         self::$jsonSchema = json_decode(file_get_contents(__DIR__ . '/../config/validationSchema.json'), true);
         self::$neshanApi = require __DIR__ . '/../config/apiConfig.php';
@@ -55,7 +58,7 @@ class NeshanService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
 
         // prepare params to send
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -104,7 +107,7 @@ class NeshanService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
 
         // prepare params to send
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -152,7 +155,7 @@ class NeshanService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
 
         // prepare params to send
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -213,7 +216,7 @@ class NeshanService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
 
         // prepare params to send
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -273,7 +276,7 @@ class NeshanService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         // prepare params to send
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
         $option[$paramKey]['origins'] = '';
@@ -337,7 +340,7 @@ class NeshanService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
 
         // prepare params to send
         # set productId
@@ -404,7 +407,7 @@ class NeshanService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         // prepare params to send
         # set productId
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
