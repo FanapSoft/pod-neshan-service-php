@@ -60,7 +60,12 @@ Class NeshanApiRequestHandler extends ApiRequestHandler {
         }
 
         $result = json_decode($response->getBody()->getContents(), true);
-        $neshanResult = isset($result['result']['result']) ? json_decode($result['result']['result'], true) : '';
+        if(isset($result['result']['result'])) {
+            $neshanResult =  json_decode($result['result']['result'], true);
+            $result['result']['result'] = $neshanResult;
+        } else {
+            $neshanResult = '';
+        }
 
         // handle error from pod
         if (isset($result['hasError']) && $result['hasError']) {
@@ -72,7 +77,7 @@ Class NeshanApiRequestHandler extends ApiRequestHandler {
             $errorCode = isset($result['errorCode']) ? $result['errorCode'] : PodException::SERVER_UNHANDLED_ERROR_CODE;
             throw new PodException($message, $errorCode,null, $result);
         // handle error from Neshan
-        }elseif ($result['result']['statusCode'] !== 200 || (isset($neshanResult['status']) && $neshanResult['status'] == 'ERROR') ){
+        }elseif ($result['result']['statusCode'] < 200 || $result['result']['statusCode'] >= 300 || (isset($neshanResult['status']) && $neshanResult['status'] == 'ERROR') ){
                 $message = !empty($neshanResult['message'])? $neshanResult['message'] : "Some unhandled error has occurred!";
                 $errorCode = $result['result']['statusCode'];
                 throw new PodException($message, $errorCode,null, $result);

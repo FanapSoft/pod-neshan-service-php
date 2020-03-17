@@ -1,10 +1,10 @@
 <?php
 return [
-    "search"                    =>  18913,
-    "reverseGeo"                =>  15838,
-    "direction"                 =>  18916,
-    "noTrafficDirection"        =>  18917,
-    "distanceMatrix"            =>  18911,
-    "noTrafficDistanceMatrix"   =>  18912,
-    "mapMatching"               =>  18918
+    "reverseGeo"                =>  40772,
+    "distanceMatrix"            =>  40773,
+    "noTrafficDistanceMatrix"   =>  40774,
+    "search"                    =>  40775,
+    "direction"                 =>  40776,
+    "noTrafficDirection"        =>  40777,
+    "mapMatching"               =>  40778,
 ];

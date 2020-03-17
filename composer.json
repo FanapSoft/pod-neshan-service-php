@@ -1,6 +1,6 @@
 {
   "name": "pod-sdk/pod-neshan-service",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "type": "library",
   "keywords": ["sdk", "pod sdk", "pod sdk neshan services"],
   "license": "MIT",
@@ -14,11 +14,14 @@
 
   "require": {
     "ext-openssl": "*",
-    "pod-sdk/pod-base-service" : "^3.0.1"
+    "pod-sdk/pod-base-service" : "^4.0.0"
   },
   "autoload": {
     "psr-4": {
       "Pod\\Neshan\\Service\\" : "src/"
     }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8"
   }
 }

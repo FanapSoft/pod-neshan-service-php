@@ -15,14 +15,19 @@ use Pod\Base\Service\BaseInfo;
 
 class NeshanService extends BaseService
 {
+    private $header;
     private static $neshanApi;
     private static $jsonSchema;
     private static $serviceProductId;
 
-    public function __construct()
+    public function __construct($baseInfo)
     {
         BaseInfo::initServerType(BaseInfo::PRODUCTION_SERVER);
         parent::__construct();
+        $this->header = [
+            '_token_issuer_'    =>  $baseInfo->getTokenIssuer(),
+            '_token_'           => $baseInfo->getToken()
+        ];
         self::$jsonSchema = json_decode(file_get_contents(__DIR__ . '/../config/validationSchema.json'), true);
         self::$neshanApi = require __DIR__ . '/../config/apiConfig.php';
         self::$serviceProductId = require __DIR__ . '/../config/serviceProductId.php';
@@ -30,6 +35,7 @@ class NeshanService extends BaseService
 
     public function search($params) {
         $apiName = 'search';
+        $header = $this->header;
         $optionHasArray = false;
         array_walk_recursive($params, 'self::prepareData');
 
@@ -40,17 +46,11 @@ class NeshanService extends BaseService
             $header['_token_issuer_'] = $params['tokenIssuer'];
             unset($params['tokenIssuer']);
         }
-        else{
-            $header['_token_issuer_'] = 1;
-        }
 
         // set token in header
         if (isset($params['token'])) {
             $header['_token_'] = $params['token'];
             unset($params['token']);
-        }
-        else{
-            $header['_token_'] = '';
         }
 
         $option = [
@@ -80,6 +80,7 @@ class NeshanService extends BaseService
 
     public function reverseGeo($params) {
         $apiName = 'reverseGeo';
+        $header = $this->header;
         $optionHasArray = false;
 
         array_walk_recursive($params, 'self::prepareData');
@@ -89,17 +90,11 @@ class NeshanService extends BaseService
             $header['_token_issuer_'] = $params['tokenIssuer'];
             unset($params['tokenIssuer']);
         }
-        else{
-            $header['_token_issuer_'] = 1;
-        }
 
         // set token in header
         if (isset($params['token'])) {
             $header['_token_'] = $params['token'];
             unset($params['token']);
-        }
-        else{
-            $header['_token_'] = '';
         }
 
         $option = [
@@ -129,6 +124,7 @@ class NeshanService extends BaseService
 
     public function direction($params) {
         $apiName = 'direction';
+        $header = $this->header;
         $optionHasArray = false;
         array_walk_recursive($params, 'self::prepareData');
         $paramKey = self::$neshanApi[$apiName]['method'] == 'GET' ? 'query' : 'form_params';
@@ -137,17 +133,11 @@ class NeshanService extends BaseService
             $header['_token_issuer_'] = $params['tokenIssuer'];
             unset($params['tokenIssuer']);
         }
-        else{
-            $header['_token_issuer_'] = 1;
-        }
 
         // set token in header
         if (isset($params['token'])) {
             $header['_token_'] = $params['token'];
             unset($params['token']);
-        }
-        else{
-            $header['_token_'] = '';
         }
 
         $option = [
@@ -190,6 +180,7 @@ class NeshanService extends BaseService
 
     public function noTrafficDirection($params) {
         $apiName = 'noTrafficDirection';
+        $header = $this->header;
         $optionHasArray = false;
         array_walk_recursive($params, 'self::prepareData');
         $paramKey = self::$neshanApi[$apiName]['method'] == 'GET' ? 'query' : 'form_params';
@@ -199,18 +190,13 @@ class NeshanService extends BaseService
             $header['_token_issuer_'] = $params['tokenIssuer'];
             unset($params['tokenIssuer']);
         }
-        else{
-            $header['_token_issuer_'] = 1;
-        }
 
         // set token in header
         if (isset($params['token'])) {
             $header['_token_'] = $params['token'];
             unset($params['token']);
         }
-        else{
-            $header['_token_'] = '';
-        }
+
         $option = [
             'headers' => $header,
             $paramKey => $params,
@@ -249,6 +235,7 @@ class NeshanService extends BaseService
 
     public function distanceMatrix($params) {
         $apiName = 'distanceMatrix';
+        $header = $this->header;
         $optionHasArray = false;
         array_walk_recursive($params, 'self::prepareData');
         $paramKey = self::$neshanApi[$apiName]['method'] == 'GET' ? 'query' : 'form_params';
@@ -258,17 +245,11 @@ class NeshanService extends BaseService
             $header['_token_issuer_'] = $params['tokenIssuer'];
             unset($params['tokenIssuer']);
         }
-        else{
-            $header['_token_issuer_'] = 1;
-        }
 
         // set token in header
         if (isset($params['token'])) {
             $header['_token_'] = $params['token'];
             unset($params['token']);
-        }
-        else{
-            $header['_token_'] = '';
         }
 
         $option = [
@@ -313,6 +294,7 @@ class NeshanService extends BaseService
 
     public function noTrafficDistanceMatrix($params) {
         $apiName = 'noTrafficDistanceMatrix';
+        $header = $this->header;
         $optionHasArray = false;
         array_walk_recursive($params, 'self::prepareData');
         $paramKey = self::$neshanApi[$apiName]['method'] == 'GET' ? 'query' : 'form_params';
@@ -322,17 +304,11 @@ class NeshanService extends BaseService
             $header['_token_issuer_'] = $params['tokenIssuer'];
             unset($params['tokenIssuer']);
         }
-        else{
-            $header['_token_issuer_'] = 1;
-        }
 
         // set token in header
         if (isset($params['token'])) {
             $header['_token_'] = $params['token'];
             unset($params['token']);
-        }
-        else{
-            $header['_token_'] = '';
         }
 
         $option = [
@@ -380,6 +356,7 @@ class NeshanService extends BaseService
 
     public function mapMatching($params) {
         $apiName = 'mapMatching';
+        $header = $this->header;
         $optionHasArray = false;
         array_walk_recursive($params, 'self::prepareData');
         $paramKey = self::$neshanApi[$apiName]['method'] == 'GET' ? 'query' : 'form_params';
@@ -389,17 +366,11 @@ class NeshanService extends BaseService
             $header['_token_issuer_'] = $params['tokenIssuer'];
             unset($params['tokenIssuer']);
         }
-        else{
-            $header['_token_issuer_'] = 1;
-        }
 
         // set token in header
         if (isset($params['token'])) {
             $header['_token_'] = $params['token'];
             unset($params['token']);
-        }
-        else{
-            $header['_token_'] = '';
         }
 
         $option = [
