@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: keshtgar
- * Date: 11/11/19
- * Time: 9:49 AM
- */
 use PHPUnit\Framework\TestCase;
 use Pod\Neshan\Service\NeshanService;
 use Pod\Base\Service\BaseInfo;
